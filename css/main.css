@@ -25,7 +25,16 @@ nav {
  }
 .title, .addDancerButton{
   padding:5px 12px;
+}
 
+#battle {
+  margin-top: 10px;
+  margin-left: 5px;
+  background-color: #26C3C0;
+  color: #fff;
+}
+#battle:hover {
+  background-color: #2D70B6;
 }
 
 .title {

@@ -13,6 +13,7 @@
     <link type="text/css" href="css/jquery-ui.css" rel="Stylesheet">   
     <script type="text/javascript" src="lib/jquery-ui.min.js"></script>
     <script src="lib/physicsjs-full.js"></script>
+    <!-- <script src="lib/physicsjs-full.min.js"></script> -->
 
     <!-- Latest compiled and minified CSS -->
     <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
@@ -24,11 +25,11 @@
     <div class="container-fluid">
       <div class="navbar-header">
         <a class="navbar-brand lineUpButton" id="logo" href="#"></a>
+        <button type="button" id = "battle" class="btn btn-default battle">Battle!</button>
       </div>
       <div class="container navbar nav-center title">
         <h1 class="title">Pokemon Dance Party</h1>
       </div>
-      
         <ul class="nav navbar-nav navbar-right">
           <li class="dropdown">
             <a href="#" id="pokeball" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> </a>
@@ -55,7 +56,7 @@
     <script src="src/init.js"></script>
     <script src="lib/bootstrap.js"></script>
     <script>
-      $(document).ready(function(){
+      $('.battle').on('click', function(){
         var height = $("body").height();
         var width = $("body").width();
         // world declaration
@@ -65,7 +66,12 @@
               el: "canvasid", // canvas element id
           width: width,   // canvas width
           height: height,    // canvas height
-          meta: false   // setting it to "true" will display FPS
+          meta: false,
+          styles: {
+            'convex-polygon' : {
+              background: "img/sprites/hypno.gif"
+            }
+          }   // setting it to "true" will display FPS
         }); 
         // adding the renderer to the world
         world.add(renderer);
@@ -77,7 +83,7 @@
         var gravity = Physics.behavior("constant-acceleration",{
               acc: {
             x:0, 
-            y:0.0004
+            y:0.00009
           } 
         });
         // adding gravity to the world
@@ -85,51 +91,98 @@
         // adding collision detection with canvas edges
         world.add(Physics.behavior("edge-collision-detection", {
               aabb: Physics.aabb(0, 0, width, height),
-              restitution: 0
+              restitution: .2
           }));
           // bodies will react to forces such as gravity
           world.add(Physics.behavior("body-impulse-response"));
           // enabling collision detection among bodies
           world.add(Physics.behavior("body-collision-detection"));
         world.add(Physics.behavior("sweep-prune"));
+
+        var squares = [];
+        for ( var i = 0, l = 24; i < l; ++i ){
+
+          var bulbs = Physics.body("convex-polygon",{
+                x: $(window).width()/2 - (50*(i%5)) + 8
+                ,y:$(window).height() - (50*i)+ 60,
+                vertices: [
+                  {x:0, y:0},
+                  {x:0, y:50},
+                  {x:50, y:50},
+                  {x:50, y:0}
+                ],
+                restitution:0.99,
+              });
+          bulbs.view = new Image();
+          bulbs.view.src = 'img/sprites/bulbasaur.gif';
+
+          squares.push(bulbs);
+        };
+
+      world.add(squares);
+
            $("#canvasid").click(function(e){
             // checking canvas coordinates for the mouse click
-          var offset = $(this).offset();
-          var px = e.pageX - offset.left;
+            var offset = $(this).offset();
+            var px = e.pageX - offset.left;
             var py = e.pageY - offset.top;
             // this is the way physicsjs handles 2d vectors, similar at Box2D's b2Vec
-          var mousePos = Physics.vector();
+            var mousePos = Physics.vector();
             mousePos.set(px,py);
             // finding a body under mouse position
             var body = world.findOne({
-            $at: mousePos
-          })
+              $at: mousePos
+            })
           // there isn't any body under mouse position, going to create a new box
-          if(!body){
-              world.add(Physics.body("convex-polygon",{
-                    x: px,
-                    y: py,
-                    vertices: [
-                      {x:0, y:0},
-                      {x:0, y:60},
-                      {x:60, y:60},
-                      {x:60, y:0}
+            if(!body){
+              
+              // var convex = Physics.body("convex-polygon",{
+              //   x: px,
+              //   y: py,
+              //   vertices: [
+              //     {x:0, y:0},
+              //     {x:0, y:60},
+              //     {x:60, y:60},
+              //     {x:60, y:0}
+              //   ],
+              //   restitution:0.05,
+              // });
+              var projectile = Physics.body('circle', {
+                  x: px
+                , y: py
+                , vx: (Math.random() * 2) + 1
+                , mass: 4
+                , radius: 30
+                , restitution: 1.7
+                , angularVelocity: 0.001
+                , label: 'bullet'
+                , styles: {
+                    fillStyle: '0xd33682'
+                    , lineWidth: 1
+                    , angleIndicator: '0x751b4b'
+                  }
+              });
+        projectile.view = new Image();
+        projectile.view.src = 'img/pokeball.png';
+              // convex.view = new Image();
+              // convex.view.src = 'img/sprites/bulbasaur.gif';
+              // world.add(convex);
+              world.add(projectile);
+            } else {
+              // there is a body under mouse position, let's remove it
+              // world.removeBody(body);
+              // world.add(projectile);
+            } 
+          });
         
-                  ],
-                  restitution:0.5,
-                }));
-          }
-          else{
-            // there is a body under mouse position, let's remove it
-            world.removeBody(body);
-          } 
-        })
+
+
         // handling timestep
           Physics.util.ticker.subscribe(function(time,dt){
               world.step(time);
           });
         Physics.util.ticker.start();
-      })
+      });
     </script>   
 
   </body>
