@@ -12,6 +12,7 @@
     <script src="src/pokemon.js"></script>
     <link type="text/css" href="css/jquery-ui.css" rel="Stylesheet">   
     <script type="text/javascript" src="lib/jquery-ui.min.js"></script>
+    <script src="lib/physicsjs-full.js"></script>
 
     <!-- Latest compiled and minified CSS -->
     <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
@@ -22,7 +23,7 @@
   <nav class="navbar navbar-fixed-top">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" id="logo" href="#"></a>
+        <a class="navbar-brand lineUpButton" id="logo" href="#"></a>
       </div>
       <div class="container navbar nav-center title">
         <h1 class="title">Pokemon Dance Party</h1>
@@ -49,7 +50,87 @@
     </div><!-- /.container-fluid -->
 
   </nav>
+    <canvas id="canvasid" width="100%" height="100%"></canvas>
+
     <script src="src/init.js"></script>
     <script src="lib/bootstrap.js"></script>
+    <script>
+      $(document).ready(function(){
+        var height = $("body").height();
+        var width = $("body").width();
+        // world declaration
+        var world = Physics();
+        // creation of the renderer which will draw the world
+        var renderer = Physics.renderer("canvas",{
+              el: "canvasid", // canvas element id
+          width: width,   // canvas width
+          height: height,    // canvas height
+          meta: false   // setting it to "true" will display FPS
+        }); 
+        // adding the renderer to the world
+        world.add(renderer);
+        // what happens at every iteration step? We render (show the world)
+        world.subscribe("step",function(){
+              world.render();
+        });
+        // this is the default gravity
+        var gravity = Physics.behavior("constant-acceleration",{
+              acc: {
+            x:0, 
+            y:0.0004
+          } 
+        });
+        // adding gravity to the world
+        world.add(gravity);
+        // adding collision detection with canvas edges
+        world.add(Physics.behavior("edge-collision-detection", {
+              aabb: Physics.aabb(0, 0, width, height),
+              restitution: 0
+          }));
+          // bodies will react to forces such as gravity
+          world.add(Physics.behavior("body-impulse-response"));
+          // enabling collision detection among bodies
+          world.add(Physics.behavior("body-collision-detection"));
+        world.add(Physics.behavior("sweep-prune"));
+           $("#canvasid").click(function(e){
+            // checking canvas coordinates for the mouse click
+          var offset = $(this).offset();
+          var px = e.pageX - offset.left;
+            var py = e.pageY - offset.top;
+            // this is the way physicsjs handles 2d vectors, similar at Box2D's b2Vec
+          var mousePos = Physics.vector();
+            mousePos.set(px,py);
+            // finding a body under mouse position
+            var body = world.findOne({
+            $at: mousePos
+          })
+          // there isn't any body under mouse position, going to create a new box
+          if(!body){
+              world.add(Physics.body("convex-polygon",{
+                    x: px,
+                    y: py,
+                    vertices: [
+                      {x:0, y:0},
+                      {x:0, y:60},
+                      {x:60, y:60},
+                      {x:60, y:0}
+        
+                  ],
+                  restitution:0.5,
+                }));
+          }
+          else{
+            // there is a body under mouse position, let's remove it
+            world.removeBody(body);
+          } 
+        })
+        // handling timestep
+          Physics.util.ticker.subscribe(function(time,dt){
+              world.step(time);
+          });
+        Physics.util.ticker.start();
+      })
+    </script>   
+
   </body>
 </html>
