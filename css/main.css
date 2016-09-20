@@ -21,7 +21,7 @@ nav {
 }
 .dropdown:hover .dropdown-menu {
     display: block;
-    margin-top: 0; // remove the gap so it doesn't close
+    margin-top: -30px; // remove the gap so it doesn't close
  }
 .title, .addDancerButton{
   padding:5px 12px;
@@ -36,7 +36,7 @@ nav {
   text-align: center;
   margin-top: -1px;
 }
-.dancer{
+.bulbasaur {
   background-image: url("../img/pokemon/bulbasaur.gif");
   height: 192px;
   width: 192px;
@@ -47,7 +47,6 @@ nav {
   height: 192px;
   width: 192px;
   position: absolute;
-
 }
 .alakazam {
   background-image: url("../img/pokemon/alakazam.gif");
