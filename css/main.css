@@ -37,7 +37,6 @@ nav {
   margin-top: -1px;
 }
 
-<!-- Pokemon Dancers --> 
 .bulbasaur {
   background-image: url("../img/sprites/bulbasaur.gif");
   height: 192px;
@@ -58,8 +57,8 @@ nav {
 }
 .exec {
   background-image: url("../img/sprites/exec.gif");
-  height: 192px;
-  width: 192px;
+  height: 142px;
+  width: 99px;
   position: absolute;
 }
 .gengar {
@@ -70,32 +69,32 @@ nav {
 }
 .hypno {
   background-image: url("../img/sprites/hypno.gif");
-  height: 192px;
-  width: 192px;
+  height: 66px;
+  width: 62px;
   position: absolute;
 }
 .snorlax {
   background-image: url("../img/sprites/snorlax.gif");
-  height: 192px;
-  width: 192px;
+  height: 75px;
+  width: 74px;
   position: absolute;
 }
 .steelix {
   background-image: url("../img/sprites/steelix.gif");
-  height: 192px;
-  width: 192px;
+  height: 93px;
+  width: 88px;
   position: absolute;
 }
 .venom {
   background-image: url("../img/sprites/venom.gif");
-  height: 192px;
-  width: 192px;
+  height: 85px;
+  width: 120px;
   position: absolute;
 }
 .wiggly {
   background-image: url("../img/sprites/wigglytuff.gif");
-  height: 192px;
-  width: 192px;
+  height: 72px;
+  width: 68px;
   position: absolute;
 }
 #pokeball {
