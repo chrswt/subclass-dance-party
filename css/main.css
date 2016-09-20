@@ -28,15 +28,13 @@ nav {
 
 }
 
-.title{
-
+.title {
   font-family: 'Gloria Hallelujah', cursive;
-  margin: 0 auto;
-  display: inline-block;
   color: #FFF;
   opacity: .95;
-  position: absolute;
-  margin-left: 35%;
+  position: relative;
+  text-align: center;
+  margin-top: -1px;
 }
 .dancer{
   background-image: url("../img/pokemon/bulbasaur.gif");
@@ -62,10 +60,9 @@ nav {
   height: 30px;
   width: 30px;
   background-size: 100%;
-  background-position: center;
-  padding-top: 30px;
   background-repeat: no-repeat;
   margin-right: 10px;
+  margin-top: -62px;
 }
 #logo {
   background-size: 100%;
