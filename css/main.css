@@ -1,0 +1,78 @@
+body, html{
+  height:100%;
+}
+body{
+  margin: 0px;
+  background-image: url("../img/background.png");
+  font-size: 18px;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center;
+}
+body, a:link, a:visited, a:active{
+  color: lightblue;
+}
+nav {
+  background: linear-gradient(50deg, #2D70B6, #28A4CD, #26C3C0);
+  border: none;
+}
+.navbar {
+  height: 60px;
+}
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0; // remove the gap so it doesn't close
+ }
+.title, .addDancerButton{
+  padding:5px 12px;
+
+}
+
+.title{
+
+  font-family: 'Gloria Hallelujah', cursive;
+  margin: 0 auto;
+  display: inline-block;
+  color: #FFF;
+  opacity: .95;
+  position: absolute;
+  margin-left: 35%;
+}
+.dancer{
+  background-image: url("../img/pokemon/bulbasaur.gif");
+  height: 192px;
+  width: 192px;
+  position: absolute;
+}
+.charmander {
+  background-image: url("../img/pokemon/charmander.gif");
+  height: 192px;
+  width: 192px;
+  position: absolute;
+
+}
+.alakazam {
+  background-image: url("../img/pokemon/alakazam.gif");
+  height: 192px;
+  width: 192px;
+  position: absolute;
+}
+#pokeball {
+  background-image: url("../img/dropdown.png");
+  height: 30px;
+  width: 30px;
+  background-size: 100%;
+  background-position: center;
+  padding-top: 30px;
+  background-repeat: no-repeat;
+  margin-right: 10px;
+}
+#logo {
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-image: url("../img/Logo.png");
+  height: 70px;
+  width: 130px;
+  margin: 0px auto;
+  margin-top: -5px;
+}
