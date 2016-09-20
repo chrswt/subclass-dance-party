@@ -57,8 +57,8 @@ nav {
 }
 .exec {
   background-image: url("../img/sprites/exec.gif");
-  height: 142px;
-  width: 99px;
+  height: 99px;
+  width: 142px;
   position: absolute;
 }
 .gengar {
