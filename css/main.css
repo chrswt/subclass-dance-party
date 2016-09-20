@@ -36,7 +36,9 @@ nav {
   text-align: center;
   margin-top: -1px;
 }
-
+.dancer {
+  cursor: move;
+}
 .bulbasaur {
   background-image: url("../img/sprites/bulbasaur.gif");
   height: 192px;
