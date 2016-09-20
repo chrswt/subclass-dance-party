@@ -36,20 +36,64 @@ nav {
   text-align: center;
   margin-top: -1px;
 }
+
+<!-- Pokemon Dancers --> 
 .bulbasaur {
-  background-image: url("../img/pokemon/bulbasaur.gif");
+  background-image: url("../img/sprites/bulbasaur.gif");
   height: 192px;
   width: 192px;
   position: absolute;
 }
 .charmander {
-  background-image: url("../img/pokemon/charmander.gif");
+  background-image: url("../img/sprites/charmander.gif");
   height: 192px;
   width: 192px;
   position: absolute;
 }
 .alakazam {
-  background-image: url("../img/pokemon/alakazam.gif");
+  background-image: url("../img/sprites/alakazam.gif");
+  height: 192px;
+  width: 192px;
+  position: absolute;
+}
+.exec {
+  background-image: url("../img/sprites/exec.gif");
+  height: 192px;
+  width: 192px;
+  position: absolute;
+}
+.gengar {
+  background-image: url("../img/sprites/gengar.gif");
+  height: 192px;
+  width: 192px;
+  position: absolute;
+}
+.hypno {
+  background-image: url("../img/sprites/hypno.gif");
+  height: 192px;
+  width: 192px;
+  position: absolute;
+}
+.snorlax {
+  background-image: url("../img/sprites/snorlax.gif");
+  height: 192px;
+  width: 192px;
+  position: absolute;
+}
+.steelix {
+  background-image: url("../img/sprites/steelix.gif");
+  height: 192px;
+  width: 192px;
+  position: absolute;
+}
+.venom {
+  background-image: url("../img/sprites/venom.gif");
+  height: 192px;
+  width: 192px;
+  position: absolute;
+}
+.wiggly {
+  background-image: url("../img/sprites/wigglytuff.gif");
   height: 192px;
   width: 192px;
   position: absolute;
