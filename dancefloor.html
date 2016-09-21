@@ -83,7 +83,7 @@
         var gravity = Physics.behavior("constant-acceleration",{
               acc: {
             x:0, 
-            y:0.00009
+            y:0.000001
           } 
         });
         // adding gravity to the world
@@ -91,7 +91,7 @@
         // adding collision detection with canvas edges
         world.add(Physics.behavior("edge-collision-detection", {
               aabb: Physics.aabb(0, 0, width, height),
-              restitution: .2
+              restitution: .5
           }));
           // bodies will react to forces such as gravity
           world.add(Physics.behavior("body-impulse-response"));
@@ -101,7 +101,23 @@
 
         var squares = [];
         for ( var i = 0, l = 24; i < l; ++i ){
-
+          if (i > 22) {
+            var big = Physics.body("convex-polygon",{
+                x: $(window).width()
+                ,y:$(window).height(),
+                vertices: [
+                  {x:0, y:0},
+                  {x:0, y:150},
+                  {x:150, y:150},
+                  {x:150, y:0}
+                ],
+                restitution:1,
+                mass: 20
+              });
+            big.view = new Image();
+            big.view.src = 'img/sprites/snorlax2.gif';
+            squares.push(big);
+          } else {
           var bulbs = Physics.body("convex-polygon",{
                 x: $(window).width()/2 - (50*(i%5)) + 8
                 ,y:$(window).height() - (50*i)+ 60,
@@ -111,12 +127,25 @@
                   {x:50, y:50},
                   {x:50, y:0}
                 ],
-                restitution:0.99,
+                 
+                restitution:1,
               });
           bulbs.view = new Image();
-          bulbs.view.src = 'img/sprites/bulbasaur.gif';
-
+          var randomImage = ['img/sprites/bulbasaur.gif',
+          'img/sprites/alakazam.gif',
+          'img/sprites/charmander.gif',
+          'img/sprites/exec.gif',
+          'img/sprites/gengar.gif',
+          'img/sprites/hypno.gif',
+          'img/sprites/snorlax.gif',
+          'img/sprites/squirtle.gif',
+          'img/sprites/steelix.gif',
+          'img/sprites/venom.gif',
+          'img/sprites/wigglytuff.gif'];
+          bulbs.view.src = randomImage[Math.floor(Math.random() * randomImage.length)];
+          
           squares.push(bulbs);
+          }
         };
 
       world.add(squares);
@@ -151,9 +180,9 @@
                   x: px
                 , y: py
                 , vx: (Math.random() * 2) + 1
-                , mass: 4
+                , mass: 2
                 , radius: 30
-                , restitution: 1.7
+                , restitution: 2
                 , angularVelocity: 0.001
                 , label: 'bullet'
                 , styles: {
